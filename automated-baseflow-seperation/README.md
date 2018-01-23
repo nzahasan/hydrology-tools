@@ -1,4 +1,4 @@
-#### Automated baseflow seperation using recursive filter
+## Automated baseflow seperation using recursive filter
 
 
 ![](source.png)
