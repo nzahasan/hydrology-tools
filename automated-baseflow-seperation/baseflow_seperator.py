@@ -25,7 +25,7 @@ nzahasan@gmail.com
 
 import sys
 
-def read_csv(fname,header=1):
+def read_csv(fname,header=1,date_col=0,flow_col=1):
 
 	dates = []
 	Q = []
@@ -35,11 +35,11 @@ def read_csv(fname,header=1):
 
 		for i in range(len(f_data)):
 			if len(f_data[i].split(',')) <2:
-				print("Insufficient data, need contieous date vs flow data")
+				print("Invalid data, need contineous date vs flow data")
 				sys.exit(100)
 
-			dates.insert( i, f_data[i].split(',')[0] )
-			Q.insert(i, float( f_data[i].split(',')[1].replace('\n','').replace('\r','') ) )
+			dates.insert( i, f_data[i].split(',')[date_col] )
+			Q.insert(i, float( f_data[i].split(',')[flow_col].replace('\n','').replace('\r','') ) )
 		
 	return dates,Q
 
@@ -53,8 +53,10 @@ def make_csv(dates,baseq):
 					if len(baseq[0])!= len(baseq[1]) and len(baseq[0])!= len(baseq[2]):
 						print('Invalid baseflow data passed to csv maker.')
 						sys.exit(200)
+	
 	for i in range(len(baseq[0])):
 		csv += dates[i]+','+str(baseq[0][i])+','+str(baseq[2][i])+','+str(baseq[2][i])+'\n'
+	
 	return csv
 
 def main():
@@ -64,8 +66,7 @@ def main():
 		sys.exit(300)
 
 	dates,Q = read_csv(str(sys.argv[1]))
-
-
+	
 	b = 0.925
 	c = 0.5*(1 + b)
 
