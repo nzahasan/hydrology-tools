@@ -1,4 +1,6 @@
+#! /usr/bin/env python3
 # -*- coding: utf-8 -*-
+
 '''			digital filter for baseflow seperation
 --------------------------------------------------------------------
 	:: q[t] = β*q[t-1] + 0.5*(1 + β)*(Q[t] -Q[t-1])
@@ -33,9 +35,13 @@ def read_csv(fname,header=1,date_col=0,flow_col=1):
 	with open(fname) as csv_file:
 		f_data = csv_file.readlines()[header:]
 
+		# remove tailing line of csv file
+		if len(f_data[-1].split(","))<2:
+			f_data = f_data[:-1]
+
 		for i in range(len(f_data)):
 			if len(f_data[i].split(',')) <2:
-				print("Invalid data, need contineous date vs flow data")
+				print("Error in csv data at line ",i+2)
 				sys.exit(100)
 
 			dates.insert( i, f_data[i].split(',')[date_col] )
