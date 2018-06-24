@@ -12,8 +12,8 @@ np.warnings.filterwarnings('ignore')
 class RatingCurve(object):
 	
 	'''	
-							RATING CURVE GENERATION 
-		--------------------------------------------------------------
+		RATING CURVE GENERATION 
+		-----------------------
 		Generates raging curve for given Waterlevel and Discharge data
 		uses scipy's bounded optimization method to determine parameter
 		generates 5 set of parameter for best performing rating curves
